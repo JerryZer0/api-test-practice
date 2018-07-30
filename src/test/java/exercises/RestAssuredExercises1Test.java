@@ -92,6 +92,7 @@ public class RestAssuredExercises1Test {
                 when().
                 get("/2014/1/circuits.json").
                 then().
+                assertThat().
                 body("MRData.CircuitTable.Circuits.circuitId[0]",equalTo("albert_park"));
     }
 
@@ -109,6 +110,7 @@ public class RestAssuredExercises1Test {
                 when().
                 get("/2014/circuits.json").
                 then().
+                assertThat().
                 body("MRData.CircuitTable.Circuits.circuitId",hasItem("silverstone"));
     }
 
@@ -126,6 +128,8 @@ public class RestAssuredExercises1Test {
                 spec(requestSpec).
                 when().
                 get("/2014/circuits.json").
-                then().body("MRData.CircuitTable.Circuits.circuitId", not(hasItem("nurburgring")));
+                then().
+                assertThat().
+                body("MRData.CircuitTable.Circuits.circuitId", not(hasItem("nurburgring")));
     }
 }

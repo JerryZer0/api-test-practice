@@ -4,8 +4,14 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 
 public class RestAssuredExercises2Test {
@@ -29,7 +35,26 @@ public class RestAssuredExercises2Test {
 	 * is in Italy, for example) 
 	 ******************************************************/
 
+	static Stream<Arguments> circuitDateProvider(){
+		return Stream.of(
+				Arguments.of("monza","Italy"),
+				Arguments.of("spa","Belgium")
+		);
+	}
 	//todo
+	@ParameterizedTest
+	@MethodSource("circuitDateProvider")
+	public void findCountryByCircuitName(String circuitName,String country){
+		given().
+				spec(requestSpec).
+				pathParam("name",circuitName).
+				when().
+				get("/circuits/{name}.json").
+				then().
+				assertThat().
+				body("MRData.CircuitTable.Circuits.Location.country[0]",equalTo(country));
+	}
+
 
 	/*******************************************************
 	 * Use junit-jupiter-params for @ParameterizedTest that specifies for all races
