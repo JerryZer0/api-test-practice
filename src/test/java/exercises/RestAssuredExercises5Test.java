@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -113,6 +114,7 @@ public class RestAssuredExercises5Test {
         given().
                 spec(requestSpec).
                 when().
-                then();
+                get("/xml/speedrecords").
+                then().assertThat().body("speedRecords.car.@make",hasItem("Benz"));
     }
 }
