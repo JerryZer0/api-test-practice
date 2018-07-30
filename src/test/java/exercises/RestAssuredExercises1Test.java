@@ -34,7 +34,9 @@ public class RestAssuredExercises1Test {
                 spec(requestSpec).
                 when().
                 get("/2016/drivers.json").
-                then().assertThat().statusCode(200);
+                then().
+                assertThat().
+                statusCode(200);
     }
 
     /*******************************************************
@@ -48,7 +50,10 @@ public class RestAssuredExercises1Test {
         given().
                 spec(requestSpec).
                 when().
-                then();
+                get("/incorrect.json").
+                then().
+                assertThat().
+                statusCode(404);
     }
 
     /*******************************************************
