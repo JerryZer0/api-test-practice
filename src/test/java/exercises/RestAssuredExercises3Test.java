@@ -112,6 +112,9 @@ public class RestAssuredExercises3Test {
                 pathParam("driverId",ninthDriverId).
                 when().
                 get("/drivers/{driverId}.json").
-                then().log().all().assertThat().body("MRData.DriverTable.Drivers.nationality[0]",equalTo("German"));
+                then().
+                log().all().
+                assertThat().
+                body("MRData.DriverTable.Drivers.nationality[0]",equalTo("German"));
     }
 }
