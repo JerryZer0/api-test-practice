@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RestAssuredExercises5Test {
 
@@ -36,7 +38,8 @@ public class RestAssuredExercises5Test {
                 when().
                 get("/xml/speedrecords").
                 then().log().all().
-                assertThat().body("speedRecords.car.year[2]",equalTo("1955"));
+                assertThat().
+                body("speedRecords.car.year[2]",equalTo("1955"));
     }
 
     /*******************************************************
@@ -52,7 +55,10 @@ public class RestAssuredExercises5Test {
         given().
                 spec(requestSpec).
                 when().
-                then();
+                get("/xml/speedrecords").
+                then().
+                assertThat().
+                body("speedRecords.car[3].@make",equalTo("Aston Martin"));
     }
 
     /*******************************************************
@@ -76,6 +82,7 @@ public class RestAssuredExercises5Test {
      * use /xml/speedrecords
      * Check that four speed records have been set by cars
      * from either Italy or Germany
+     * body("speedRecords.car.findAll{it.@make=='Aston Martin'}",equalTo()).
      ******************************************************/
 
     @Test
