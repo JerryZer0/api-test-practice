@@ -117,6 +117,6 @@ public class RestAssuredExercises5Test {
                 get("/xml/speedrecords").
                 then().log().all().
                 assertThat().
-                body("speedRecords.car.findAll{it.@make>='Benz'}", hasSize(2));
+                body("speedRecords.car.@make.grep(~/.*Benz/).size()", equalTo(2));
     }
 }
