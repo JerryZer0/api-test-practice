@@ -64,6 +64,13 @@ public class RestAssuredExercises3Test {
 
 
     static void getNinthDriverId() {
+        ninthDriverId = given().
+                spec(requestSpec).
+                when().
+                get("/2016/drivers.json").
+                then().
+                extract().
+                path("MRData.DriverTable.Drivers.driverId[8]");
 
 
     }
@@ -85,7 +92,7 @@ public class RestAssuredExercises3Test {
                 get("/2014/1/circuits.json").
                 then().
                 spec(responseSpec).
-                assertThat().
+                and().
                 body("MRData.CircuitTable.Circuits.Location.locality[0]",equalTo("Melbourne"))
         ;
     }
@@ -102,7 +109,9 @@ public class RestAssuredExercises3Test {
 
         given().
                 spec(requestSpec).
+                pathParam("driverId",ninthDriverId).
                 when().
-                then();
+                get("/drivers/{driverId}.json").
+                then().log().all().assertThat().body("MRData.DriverTable.Drivers.nationality[0]",equalTo("German"));
     }
 }
