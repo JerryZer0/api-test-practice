@@ -41,7 +41,7 @@ public class RestAssuredExercises5Test {
                 get("/xml/speedrecords").
                 then().log().all().
                 assertThat().
-                body("speedRecords.car.year[2]",equalTo("1955"));
+                body("speedRecords.car.year[2]", equalTo("1955"));
     }
 
     /*******************************************************
@@ -60,7 +60,7 @@ public class RestAssuredExercises5Test {
                 get("/xml/speedrecords").
                 then().
                 assertThat().
-                body("speedRecords.car[3].@make",equalTo("Aston Martin"));
+                body("speedRecords.car[3].@make", equalTo("Aston Martin"));
     }
 
     /*******************************************************
@@ -79,7 +79,7 @@ public class RestAssuredExercises5Test {
                 get("/xml/speedrecords").
                 then().
                 assertThat().
-                body("speedRecords.car.findAll{it.@country=='UK'}",hasSize(3));
+                body("speedRecords.car.findAll{it.@country=='UK'}", hasSize(3));
     }
 
     /*******************************************************
@@ -98,7 +98,7 @@ public class RestAssuredExercises5Test {
                 get("/xml/speedrecords").
                 then().
                 assertThat().
-                body("speedRecords.car.findAll{it.@country == 'Italy'||it.@country == 'Germany'}",hasSize(4));
+                body("speedRecords.car.findAll{it.@country == 'Italy'||it.@country == 'Germany'}", hasSize(4));
     }
 
     /*******************************************************
@@ -115,6 +115,8 @@ public class RestAssuredExercises5Test {
                 spec(requestSpec).
                 when().
                 get("/xml/speedrecords").
-                then().assertThat().body("speedRecords.car.@make",hasItem("Benz"));
+                then().log().all().
+                assertThat().
+                body("speedRecords.car.findAll{it.@make>='Benz'}", hasSize(2));
     }
 }

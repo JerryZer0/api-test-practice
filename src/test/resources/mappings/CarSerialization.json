@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "url": "/car/postcar",
+    "url": "/cars/postcar",
     "bodyPatterns": [
       {
         "equalToJson": {
