@@ -108,7 +108,7 @@ public class RestAssuredExercises1Test {
                 when().
                 get("/2014/circuits.json").
                 then().
-                body("MRData.CircuitTable.Circuits.circuitName",hasItem("Silverstone Circuit"));
+                body("MRData.CircuitTable.Circuits.circuitId",hasItem("silverstone"));
     }
 
     /***********************************************
